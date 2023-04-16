@@ -40,5 +40,5 @@ sys.exit(app.exec())
 ```
 
 ## Notes
-The downloaded audio will be in the .webm format, which is the default audio format provided by YouTube.
-This application is for educational purposes only. Please respect the rights of content creators and follow YouTube's Terms of Service.
+- The downloaded audio will be in the .mp4 format, which is an audio format provided by the pytube API.
+- This application is for educational purposes only. Please respect the rights of content creators and follow YouTube's Terms of Service.
