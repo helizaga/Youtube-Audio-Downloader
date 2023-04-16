@@ -1,32 +1,44 @@
-YouTube Audio Downloader
-A simple and user-friendly GUI application to download audio from YouTube videos. This application is built using Python, PyQt6, and Pytube.
+# YouTube Audio Downloader
 
-Features
-Download audio from YouTube videos as a file
-Choose a custom save location for downloaded files
-Monitor download progress with a progress bar and percentage
-Cancel the download at any time
-Installation
-Prerequisites
-Python 3.6 or higher
-PyQt6
-Pytube
-Install Dependencies
+This program allows you to download audio from YouTube videos by providing the URL of the video. The audio is saved in the specified location on your computer.
+
+## Features
+
+- Download audio from YouTube videos
+- Show download progress
+- Change the save location for downloaded audio
+- Cancel downloads in progress
+
+## Dependencies
+
+- **Python 3.6+**
+- **PyQt6** (for the graphical user interface)
+- **pytube** (for downloading YouTube videos)
+
 To install the required dependencies, run the following command:
 
-bash
-Copy code
 pip install PyQt6 pytube
-Usage
-Clone the repository or download the youtube_audio_downloader.py file.
-Run the script using Python:
-bash
-Copy code
-python youtube_audio_downloader.py
-The application window will appear. Enter the YouTube video URL, choose the save location (optional), and click "Download Audio."
-Monitor the download progress and wait for the download to complete. You can also cancel the download at any time.
-Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-License
-MIT License
+
+## Usage
+
+1. Run the script `python youtube_audio_downloader.py`.
+2. Enter the YouTube URL in the provided input field.
+3. Click **Download Audio** to start downloading the audio.
+4. Optionally, you can change the save location for the downloaded audio by clicking the **Change Save Location** button.
+5. During the download process, you can click the **Cancel Download** button to cancel the download.
+
+## Example
+
+```python
+from youtube_audio_downloader import YoutubeAudioDownloader
+
+app = QApplication(sys.argv)
+window = YoutubeAudioDownloader()
+window.show()
+sys.exit(app.exec())
+```
+
+## Notes
+The downloaded audio will be in the .webm format, which is the default audio format provided by YouTube.
+This application is for educational purposes only. Please respect the rights of content creators and follow YouTube's Terms of Service.
