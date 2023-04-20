@@ -1,44 +1,49 @@
-# YouTube Audio Downloader
+# YouTube Audio Downloader & Key Detector
 
-This program allows you to download audio from YouTube videos by providing the URL of the video. The audio is saved in the specified location on your computer.
+This Python script downloads YouTube audio files and analyzes the music key using a PyQt6 GUI. The application uses `pytube` for downloading, `librosa` for key detection, and `soundfile` for audio file manipulation. It also provides a progress bar and information display for the download and analysis processes.
 
 ## Features
 
-- Download audio from YouTube videos
-- Show download progress
-- Change the save location for downloaded audio
-- Cancel downloads in progress
+- Download YouTube audio files in mp3 format
+- Analyze the music key of the downloaded audio
+- Display download progress with a progress bar
+- Display analysis progress with a progress bar
+- Display the detected music key, file path, and video title
+- Change the download location
 
 ## Dependencies
 
-- **Python 3.6+**
-- **PyQt6** (for the graphical user interface)
-- **pytube** (for downloading YouTube videos)
+- PyQt6
+- pytube
+- librosa
+- soundfile
+- pydub
 
-To install the required dependencies, run the following command:
+## Installation
 
-pip install PyQt6 pytube
+Before running the script, make sure to install the required dependencies by running:
 
+pip install PyQt6 pytube librosa soundfile pydub
 
 ## Usage
 
-1. Run the script `python youtube_audio_downloader.py`.
-2. Enter the YouTube URL in the provided input field.
-3. Click **Download Audio** to start downloading the audio.
-4. Optionally, you can change the save location for the downloaded audio by clicking the **Change Save Location** button.
-5. During the download process, you can click the **Cancel Download** button to cancel the download.
+To use the application, simply run the script:
 
-## Example
+python youtube_audio_downloader.py
 
-```python
-from youtube_audio_downloader import YoutubeAudioDownloader
+A graphical interface will open, allowing you to enter a YouTube URL, download the audio, and analyze the music key. The application also provides options to cancel the download and analysis processes or change the download location.
 
-app = QApplication(sys.argv)
-window = YoutubeAudioDownloader()
-window.show()
-sys.exit(app.exec())
-```
+## Code Structure
 
-## Notes
-- The downloaded audio will be in the .mp4 format, which is an audio format provided by the pytube API.
-- This application is for educational purposes only. Please respect the rights of content creators and follow YouTube's Terms of Service.
+The code is organized into the following main components:
+
+- **detect_music_key**: a function that analyzes the music key of an audio file
+- **DownloadThread**: a QThread subclass for downloading YouTube audio
+- **AnalysisThread**: a QThread subclass for analyzing the music key
+- **YoutubeAudioDownloader**: a QWidget subclass for the main PyQt6 application
+
+The `__main__` block initializes the QApplication and displays the main window.
+
+## License
+
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
