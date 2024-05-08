@@ -21,6 +21,25 @@ import soundfile as sf
 import io
 from pydub import AudioSegment
 
+from PyQt6.QtWidgets import QLabel
+from PyQt6.QtCore import Qt, QMimeData, QUrl
+from PyQt6.QtGui import QDrag
+
+class DraggableLabel(QLabel):
+    def __init__(self, text, parent=None):
+        super().__init__(text, parent)
+        self.setAcceptDrops(False)
+
+    def mouseMoveEvent(self, event):
+        if event.buttons() == Qt.MouseButton.LeftButton:
+            drag = QDrag(self)
+            mimeData = QMimeData()
+            url = QUrl.fromLocalFile(self.text())
+            mimeData.setUrls([url])
+            drag.setMimeData(mimeData)
+            drag.exec(Qt.DropAction.CopyAction)
+
+
 
 def detect_music_key(file_path, progress_callback=None):
     if progress_callback:
@@ -281,7 +300,7 @@ class YoutubeAudioDownloader(QWidget):
         layout.addWidget(self.music_key_label)
 
     def create_file_path_label(self, layout):
-        self.file_path_label = QLabel("")
+        self.file_path_label = DraggableLabel("")
         layout.addWidget(self.file_path_label)
 
     def create_video_title_label(self, layout):
@@ -292,7 +311,7 @@ class YoutubeAudioDownloader(QWidget):
         self.music_key_label.setText(f"Music key: {music_key}")
 
     def display_file_path(self, file_path):
-        self.file_path_label.setText(f"Saved to: {file_path}")
+        self.file_path_label.setText(file_path)
 
     def display_video_title(self, title):
         self.video_title_label.setText(f"Title: {title}")

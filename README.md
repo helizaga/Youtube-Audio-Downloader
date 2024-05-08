@@ -18,12 +18,13 @@ This Python script downloads YouTube audio files and analyzes the music key usin
 - librosa
 - soundfile
 - pydub
+- ffmpeg
 
 ## Installation
 
 Before running the script, make sure to install the required dependencies by running:
 
-pip install PyQt6 pytube librosa soundfile pydub
+pip install PyQt6 pytube librosa soundfile pydub ffmpeg
 
 ## Usage
 
