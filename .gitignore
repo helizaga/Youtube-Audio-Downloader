@@ -1,1 +1,5 @@
 changes.patch
+youtube_audio_downloader.spec
+__pycache__
+build
+dist
