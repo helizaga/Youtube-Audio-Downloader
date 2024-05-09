@@ -7,6 +7,7 @@ class AnalysisThread(QThread):
     analysis_progress_signal = pyqtSignal(int)
     music_key_signal = pyqtSignal(str)
     video_title_signal = pyqtSignal(str)
+    error_signal = pyqtSignal(str)
 
     def __init__(self, file_path):
         super().__init__()
@@ -23,9 +24,9 @@ class AnalysisThread(QThread):
             self.music_key_signal.emit(music_key)
 
         except Exception as e:
-            print(f"Error: {e}")
-            return
-
+            self.error_signal.emit(f"Error: {e}")
+            
     def stop(self):
         self.is_cancelled = True
-        self.terminate()
+        while self.isRunning():
+            self.msleep(10)

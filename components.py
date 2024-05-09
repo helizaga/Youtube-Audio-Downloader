@@ -71,7 +71,7 @@ class YoutubeAudioDownloader(QWidget):
         layout = QVBoxLayout()
         self.create_widgets(layout)
         self.setLayout(layout)
-
+        
     def create_widgets(self, layout):
         self.create_url_label(layout)
         self.create_url_input(layout)
@@ -189,7 +189,8 @@ class YoutubeAudioDownloader(QWidget):
         else:
             print("Invalid row index, cannot update video title in the table.")
 
-
+    def display_error(self, error_message):
+        QMessageBox.critical(self, "Error", error_message)
 
     def download_audio(self):
         self.reset_output()
@@ -205,7 +206,7 @@ class YoutubeAudioDownloader(QWidget):
         self.table.insertRow(self.current_row)
 
         self.download_thread = DownloadThread(
-            url, self.save_location, self.pyqt_progress
+            url, self.save_location
         )
         self.download_thread.download_progress_signal.connect(
             self.update_download_progress
@@ -213,6 +214,7 @@ class YoutubeAudioDownloader(QWidget):
         self.download_thread.file_path_signal.connect(self.start_analysis)
         self.download_thread.video_title_signal.connect(self.display_video_title)
         self.download_thread.finished.connect(self.download_complete)
+        self.download_thread.error_signal.connect(self.display_error)
         self.download_thread.start()
 
         self.download_button.setEnabled(False)
@@ -232,6 +234,7 @@ class YoutubeAudioDownloader(QWidget):
         )
         self.analysis_thread.music_key_signal.connect(self.display_music_key)
         self.analysis_thread.finished.connect(self.analysis_complete)
+        self.analysis_thread.error_signal.connect(self.display_error)
         self.analysis_thread.start()
         self.analysis_progress_bar.setValue(0)
         self.analysis_progress_label.setText("Analyzing: 0%")
@@ -245,11 +248,6 @@ class YoutubeAudioDownloader(QWidget):
             self.status_label.setText("Analysis cancelled")
             self.download_button.setEnabled(True)
             self.cancel_button.setEnabled(False)
-
-    def pyqt_progress(self, stream, chunk, bytes_remaining):
-        progress = int((1 - bytes_remaining / stream.filesize) * 100)
-        self.download_progress_bar.setValue(progress)
-        self.download_progress_label.setText(f"Downloading: {progress}%")
 
     def update_download_progress(self, progress):
         self.download_progress_bar.setValue(progress)
